@@ -4,7 +4,7 @@ description: A tiny hello and what this space is for.
 pubDate: 2025-03-22
 ---
 
-This is the first note on the blog. It uses the same layout, type, and slash-separated lists as the rest of the site.
+This is the first note on the blog.
 
 ## What to expect
 

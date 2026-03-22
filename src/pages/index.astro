@@ -1,0 +1,71 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteIntro from "../components/SiteIntro.astro";
+import SiteBio from "../components/SiteBio.astro";
+import ProjectsSection from "../components/ProjectsSection.astro";
+
+const projects: { name: string; href: string; desc: string }[] = [
+    {
+        name: "GFCLI",
+        href: "https://github.com/t2sever/gfcli",
+        desc: "A CLI based Google Font installer.",
+    },
+    {
+        name: "frankfurter-js",
+        href: "https://github.com/t2sever/frankfurter-js",
+        desc: "Currency exchange JS SDK for frankfurter.app.",
+    },
+    {
+        name: "trias-js",
+        href: "https://github.com/t2sever/trias-js",
+        desc: "Library for using public transport data in JavaScript.",
+    },
+    {
+        name: "localthing",
+        href: "https://github.com/tinsever/localthing",
+        desc: "Online tools, but local. Has a local AI assistant built in.",
+    },
+    {
+        name: "RSSync",
+        href: "https://github.com/tinsever/rssync",
+        desc: "RSS aggregator with filters to generate own RSS feeds.",
+    },
+    {
+        name: "FOREX",
+        href: "https://github.com/tinsever/forex.mn-netz.de",
+        desc: "Fictional currency management system that uses real-life base currencies.",
+    },
+    {
+        name: "Quest",
+        href: "https://github.com/tinsever/quest",
+        desc: "Google-ish thingy I am making for world-building where people can register their currencies, could replace FOREX; or not.",
+    },
+    {
+        name: "Weather Generator",
+        href: "https://github.com/tinsever/weather-simulator",
+        desc: "A weather generator for worldbuilding or anything fictional that generates wind currents, pressure, etc.",
+    },
+    {
+        name: "Climate Map Generator",
+        href: "https://github.com/tinsever/climatemap-generator",
+        desc: "Generates water temperature and climate zone maps for maps that don't have any height levels, just water + land.",
+    },
+    {
+        name: "Map Reprojector",
+        href: "https://github.com/tinsever/map-reprojector",
+        desc: "Reproject SVG maps with ease.",
+    },
+];
+
+const featuredCount = 5;
+const featured = projects.slice(0, featuredCount);
+const more = projects.slice(featuredCount);
+---
+
+<Layout>
+    <main>
+        <SiteIntro />
+        <SiteBio />
+        <ProjectsSection featured={featured} more={more} />
+    </main>
+</Layout>

@@ -1,0 +1,27 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer
+    class="shrink-0 border-t border-stone-200/80 bg-amber-50/80 py-6 text-sm text-stone-600 dark:border-stone-700/80 dark:bg-stone-900/80 dark:text-white/50"
+>
+    <div
+        class="mx-auto flex max-w-4xl flex-col gap-2 px-4 font-mono sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-4 sm:gap-y-1"
+    >
+        <p class="m-0">© {year} Tin Sever</p>
+        <nav aria-label="Legal and source" class="flex flex-wrap gap-x-3 gap-y-1">
+            <a
+                href="/legal"
+                class="text-sm no-underline transition-colors hover:text-black dark:hover:text-white"
+                >legal</a
+            >
+            <a
+                href="https://github.com/tinsever/hp"
+                class="text-sm no-underline transition-colors hover:text-black dark:hover:text-white"
+                rel="noopener noreferrer"
+                target="_blank"
+                >source</a
+            >
+        </nav>
+    </div>
+</footer>

@@ -1,0 +1,34 @@
+---
+interface Props {
+    title: string;
+    href: string;
+    description: string;
+    dateLabel: string;
+    dateIso: string;
+}
+
+const { title, href, description, dateLabel, dateIso } = Astro.props;
+---
+
+<li
+    class="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm leading-snug"
+>
+    <a
+        href={href}
+        class="font-mono shrink-0 text-stone-900 transition-colors hover:text-black dark:text-stone-100 dark:hover:text-white"
+        >{title}</a
+    >
+    <span class="text-stone-400 select-none dark:text-white/35" aria-hidden="true"
+        >/</span
+    >
+    <span class="min-w-0 text-stone-600 dark:text-white/55">{description}</span>
+    <span class="text-stone-400 select-none dark:text-white/35" aria-hidden="true"
+        >/</span
+    >
+    <time
+        class="shrink-0 font-mono text-xs text-stone-500 dark:text-white/40"
+        datetime={dateIso}
+    >
+        {dateLabel}
+    </time>
+</li>

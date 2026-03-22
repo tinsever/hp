@@ -1,0 +1,68 @@
+---
+import "../styles/global.css";
+import LegalFooter from "../components/LegalFooter.astro";
+import Nav from "../components/Nav.astro";
+
+interface Props {
+    title?: string;
+    description?: string;
+    ogType?: "website" | "article";
+    noindex?: boolean;
+}
+
+const defaultDescription =
+    "Personal site and blog of Tin Sever — software, side projects, and notes.";
+
+const {
+    title = "Tin Sever",
+    description = defaultDescription,
+    ogType = "website",
+    noindex = false,
+} = Astro.props;
+
+const canonical =
+    Astro.site != null
+        ? new URL(Astro.url.pathname, Astro.site)
+        : Astro.url;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        {noindex && <meta name="robots" content="noindex" />}
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical.href} />
+        <meta property="og:type" content={ogType} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical.href} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <script is:inline>
+            (function () {
+                const stored = localStorage.getItem("theme");
+                const root = document.documentElement;
+                if (stored === "dark") root.classList.add("dark");
+                else if (stored === "light") root.classList.remove("dark");
+                else if (window.matchMedia("(prefers-color-scheme: dark)").matches)
+                    root.classList.add("dark");
+            })();
+        </script>
+    </head>
+    <body
+        class="flex min-h-dvh flex-col bg-amber-50 font-sans text-black dark:bg-stone-900 dark:text-white"
+    >
+        <div class="w-full shrink-0">
+            <Nav />
+        </div>
+        <div class="flex min-h-0 w-full flex-1 flex-col pb-8">
+            <slot />
+        </div>
+        <LegalFooter />
+    </body>
+</html>

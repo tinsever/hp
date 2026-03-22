@@ -1,0 +1,47 @@
+---
+import { Moon, Sun } from "lucide-astro";
+---
+
+<header
+    class="flex items-center justify-between gap-8 px-4 py-6 font-mono max-w-4xl mx-auto text-stone-600 dark:text-white/50"
+>
+    <nav class="flex gap-8">
+        <a href="/" class="no-underline transition-colors hover:text-black dark:hover:text-white"
+            >home</a>
+        <a href="/blog" class="no-underline transition-colors hover:text-black dark:hover:text-white"
+            >blog</a>
+    </nav>
+    <button
+        type="button"
+        id="theme-toggle"
+        class="shrink-0 rounded-md p-1.5 -m-1.5 text-stone-600 transition-colors hover:text-black dark:text-white/50 dark:hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-400 dark:focus-visible:outline-stone-500"
+        aria-label="Toggle dark mode"
+        aria-pressed="false"
+    >
+        <Moon class="dark:hidden" size={20} aria-hidden="true" />
+        <Sun class="hidden dark:block" size={20} aria-hidden="true" />
+    </button>
+</header>
+
+<script>
+    const btn = document.getElementById("theme-toggle");
+
+    function syncPressed() {
+        btn?.setAttribute(
+            "aria-pressed",
+            String(document.documentElement.classList.contains("dark")),
+        );
+    }
+
+    btn?.addEventListener("click", () => {
+        const root = document.documentElement;
+        root.classList.toggle("dark");
+        localStorage.setItem(
+            "theme",
+            root.classList.contains("dark") ? "dark" : "light",
+        );
+        syncPressed();
+    });
+
+    syncPressed();
+</script>

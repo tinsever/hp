@@ -1,0 +1,370 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-100.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-200.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-300.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-800.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-900.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-100.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-200.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-300.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-800.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-900.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans:
+    "Geist", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono:
+    "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+@layer base {
+  h1 {
+    @apply text-4xl font-semibold tracking-tight;
+    line-height: 1.15;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold tracking-tight;
+    line-height: 1.25;
+  }
+
+  h3 {
+    @apply text-xl font-semibold;
+    line-height: 1.35;
+  }
+
+  a[href] {
+    color: inherit;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: from-font;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+  }
+}
+
+@layer components {
+  .prosa,
+  .prosa-dark {
+    @apply w-full max-w-none text-base leading-relaxed;
+  }
+
+  .prosa :where(p) {
+    @apply my-4 first:mt-0 last:mb-0;
+  }
+
+  .prosa :where(h1) {
+    @apply mt-10 mb-4 text-3xl font-semibold tracking-tight first:mt-0;
+    line-height: 1.15;
+  }
+
+  .prosa :where(h2) {
+    @apply mt-10 mb-3 text-2xl font-semibold tracking-tight first:mt-0;
+    line-height: 1.25;
+  }
+
+  .prosa :where(h3) {
+    @apply mt-8 mb-2 text-xl font-semibold first:mt-0;
+    line-height: 1.35;
+  }
+
+  .prosa :where(h4) {
+    @apply mt-6 mb-2 text-lg font-semibold first:mt-0;
+    line-height: 1.35;
+  }
+
+  .prosa :where(ul, ol) {
+    @apply my-4 list-outside space-y-2 pl-6 first:mt-0 last:mb-0;
+  }
+
+  .prosa :where(ul) {
+    @apply list-disc;
+  }
+
+  .prosa :where(ol) {
+    @apply list-decimal;
+  }
+
+  .prosa :where(li) {
+    @apply pl-1;
+  }
+
+  .prosa :where(blockquote) {
+    @apply my-6 border-l-2 border-stone-300 pl-4 text-stone-600 italic dark:border-stone-600 dark:text-white/60;
+  }
+
+  .prosa :where(code):not(:where(pre *)) {
+    @apply rounded bg-stone-200/90 px-1 py-0.5 font-mono text-[0.9em] text-stone-900 dark:bg-stone-800 dark:text-stone-100;
+  }
+
+  .prosa :where(pre) {
+    @apply my-6 overflow-x-auto rounded-lg bg-stone-200/90 p-4 font-mono text-sm text-stone-900 dark:bg-stone-800 dark:text-stone-100;
+  }
+
+  .prosa :where(pre code) {
+    @apply bg-transparent p-0 text-[inherit] text-inherit;
+  }
+
+  .prosa :where(hr) {
+    @apply my-10 border-0 border-t border-stone-300 dark:border-stone-600;
+  }
+
+  .prosa :where(strong) {
+    @apply font-semibold text-black dark:text-white;
+  }
+
+  .prosa :where(a[href]) {
+    @apply text-stone-900 underline decoration-stone-400 decoration-from-font underline-offset-[0.2em] transition-colors hover:text-black dark:text-stone-100 dark:decoration-white/30 dark:hover:text-white;
+  }
+
+  .prosa :where(img, video) {
+    @apply my-6 max-h-[min(70vh,32rem)] w-auto max-w-full rounded-lg;
+  }
+
+  .prosa :where(figure) {
+    @apply my-6;
+  }
+
+  .prosa :where(figcaption) {
+    @apply mt-2 text-center text-sm text-stone-600 dark:text-white/55;
+  }
+
+  .prosa :where(table) {
+    @apply my-6 w-full border-collapse text-sm;
+  }
+
+  .prosa :where(th, td) {
+    @apply border border-stone-300 px-3 py-2 text-left align-top dark:border-stone-600;
+  }
+
+  .prosa :where(th) {
+    @apply font-semibold text-black dark:text-white;
+  }
+
+  .prosa {
+    @apply text-stone-800 dark:text-stone-200;
+  }
+
+  .prosa :where(h1, h2, h3, h4) {
+    @apply text-black dark:text-white;
+  }
+
+  /* --- prosa-dark: same layout + always dark palette (optional / light sections) --- */
+  .prosa-dark {
+    @apply text-stone-200;
+  }
+
+  .prosa-dark :where(p) {
+    @apply my-4 first:mt-0 last:mb-0;
+  }
+
+  .prosa-dark :where(h1) {
+    @apply mt-10 mb-4 text-3xl font-semibold tracking-tight text-white first:mt-0;
+    line-height: 1.15;
+  }
+
+  .prosa-dark :where(h2) {
+    @apply mt-10 mb-3 text-2xl font-semibold tracking-tight text-white first:mt-0;
+    line-height: 1.25;
+  }
+
+  .prosa-dark :where(h3) {
+    @apply mt-8 mb-2 text-xl font-semibold text-white first:mt-0;
+    line-height: 1.35;
+  }
+
+  .prosa-dark :where(h4) {
+    @apply mt-6 mb-2 text-lg font-semibold text-white first:mt-0;
+    line-height: 1.35;
+  }
+
+  .prosa-dark :where(ul, ol) {
+    @apply my-4 list-outside space-y-2 pl-6 first:mt-0 last:mb-0;
+  }
+
+  .prosa-dark :where(ul) {
+    @apply list-disc;
+  }
+
+  .prosa-dark :where(ol) {
+    @apply list-decimal;
+  }
+
+  .prosa-dark :where(li) {
+    @apply pl-1;
+  }
+
+  .prosa-dark :where(blockquote) {
+    @apply my-6 border-l-2 border-stone-600 pl-4 text-white/60 italic;
+  }
+
+  .prosa-dark :where(code):not(:where(pre *)) {
+    @apply rounded bg-stone-800 px-1 py-0.5 font-mono text-[0.9em] text-stone-100;
+  }
+
+  .prosa-dark :where(pre) {
+    @apply my-6 overflow-x-auto rounded-lg bg-stone-800 p-4 font-mono text-sm text-stone-100;
+  }
+
+  .prosa-dark :where(pre code) {
+    @apply bg-transparent p-0 text-[inherit] text-inherit;
+  }
+
+  .prosa-dark :where(hr) {
+    @apply my-10 border-0 border-t border-stone-600;
+  }
+
+  .prosa-dark :where(strong) {
+    @apply font-semibold text-white;
+  }
+
+  .prosa-dark :where(a[href]) {
+    @apply text-stone-100 underline decoration-white/30 decoration-from-font underline-offset-[0.2em] transition-colors hover:text-white;
+  }
+
+  .prosa-dark :where(img, video) {
+    @apply my-6 max-h-[min(70vh,32rem)] w-auto max-w-full rounded-lg;
+  }
+
+  .prosa-dark :where(figure) {
+    @apply my-6;
+  }
+
+  .prosa-dark :where(figcaption) {
+    @apply mt-2 text-center text-sm text-white/55;
+  }
+
+  .prosa-dark :where(table) {
+    @apply my-6 w-full border-collapse text-sm;
+  }
+
+  .prosa-dark :where(th, td) {
+    @apply border border-stone-600 px-3 py-2 text-left align-top;
+  }
+
+  .prosa-dark :where(th) {
+    @apply font-semibold text-white;
+  }
+}

@@ -1,0 +1,23 @@
+---
+interface Props {
+    name: string;
+    href: string;
+    desc: string;
+}
+
+const { name, href, desc } = Astro.props;
+---
+
+<li
+    class="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm leading-snug"
+>
+    <a
+        href={href}
+        class="font-mono shrink-0 text-stone-900 transition-colors hover:text-black dark:text-stone-100 dark:hover:text-white"
+        >{name}</a
+    >
+    <span class="text-stone-400 dark:text-white/35 select-none" aria-hidden="true"
+        >/</span
+    >
+    <span class="min-w-0 text-stone-600 dark:text-white/55">{desc}</span>
+</li>

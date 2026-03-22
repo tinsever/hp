@@ -1,0 +1,56 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BlogLicense from "../../components/BlogLicense.astro";
+import BlogPostRow from "../../components/BlogPostRow.astro";
+import { getCollection } from "astro:content";
+
+function formatDate(d: Date) {
+    return d.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+    });
+}
+
+function dateIso(d: Date) {
+    return d.toISOString().slice(0, 10);
+}
+
+const posts = (
+    await getCollection("blog", ({ data }) =>
+        import.meta.env.PROD ? data.draft !== true : true,
+    )
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout
+    title="Blog — Tin Sever"
+    description="Writing by Tin Sever — notes on software, projects, and the static web."
+>
+    <main>
+        <div class="max-w-4xl px-4 mx-auto pt-6">
+            <h1 class="font-light">Blog</h1>
+        </div>
+        <section class="max-w-4xl mx-auto px-4 mt-8" aria-label="Posts">
+            {
+                posts.length === 0 ? (
+                    <p class="text-sm text-stone-600 dark:text-white/55">
+                        No posts yet.
+                    </p>
+                ) : (
+                    <ul class="space-y-3.5 list-none">
+                        {posts.map((post) => (
+                            <BlogPostRow
+                                title={post.data.title}
+                                href={`/blog/${post.id}`}
+                                description={post.data.description}
+                                dateLabel={formatDate(post.data.pubDate)}
+                                dateIso={dateIso(post.data.pubDate)}
+                            />
+                        ))}
+                    </ul>
+                )
+            }
+        </section>
+    </main>
+</Layout>

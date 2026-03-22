@@ -1,0 +1,29 @@
+---
+interface Props {
+    variant?: "index" | "post";
+    class?: string;
+}
+
+const { variant = "post", class: className } = Astro.props;
+
+const href = "https://creativecommons.org/licenses/by-sa/4.0/";
+const lead =
+    variant === "index"
+        ? "Except where noted otherwise, posts on this blog are licensed under"
+        : "Except where noted otherwise, this post is licensed under";
+---
+
+<p
+    class:list={[
+        "font-mono text-sm text-stone-600 dark:text-white/55",
+        className,
+    ]}
+>
+    {lead}{" "}
+    <a
+        href={href}
+        rel="license"
+        class="text-inherit underline decoration-stone-400 decoration-from-font underline-offset-[0.2em] transition-colors hover:text-black dark:hover:text-white"
+        >CC BY-SA 4.0</a
+    >.
+</p>

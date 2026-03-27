@@ -33,7 +33,7 @@ import { Moon, Sun } from "lucide-astro";
         );
     }
 
-    btn?.addEventListener("click", () => {
+    function applyThemeToggle() {
         const root = document.documentElement;
         root.classList.toggle("dark");
         localStorage.setItem(
@@ -41,6 +41,28 @@ import { Moon, Sun } from "lucide-astro";
             root.classList.contains("dark") ? "dark" : "light",
         );
         syncPressed();
+    }
+
+    btn?.addEventListener("click", (e) => {
+        const root = document.documentElement;
+        let x = e.clientX;
+        let y = e.clientY;
+        if (x === 0 && y === 0 && btn) {
+            const r = btn.getBoundingClientRect();
+            x = r.left + r.width / 2;
+            y = r.top + r.height / 2;
+        }
+        root.style.setProperty("--theme-vt-x", `${x}px`);
+        root.style.setProperty("--theme-vt-y", `${y}px`);
+
+        if (!document.startViewTransition) {
+            applyThemeToggle();
+            return;
+        }
+
+        document.startViewTransition(() => {
+            applyThemeToggle();
+        });
     });
 
     syncPressed();

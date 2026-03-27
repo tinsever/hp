@@ -57,15 +57,12 @@ const projects: { name: string; href: string; desc: string }[] = [
     },
 ];
 
-const featuredCount = 5;
-const featured = projects.slice(0, featuredCount);
-const more = projects.slice(featuredCount);
 ---
 
 <Layout>
     <main>
         <SiteIntro />
         <SiteBio />
-        <ProjectsSection featured={featured} more={more} />
+        <ProjectsSection projects={projects} />
     </main>
 </Layout>

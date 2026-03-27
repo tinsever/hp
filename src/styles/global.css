@@ -184,6 +184,10 @@
 }
 
 @layer base {
+  body {
+    line-height: 1.6;
+  }
+
   h1 {
     @apply text-4xl font-semibold tracking-tight;
     line-height: 1.15;
@@ -212,7 +216,7 @@
 @layer components {
   .prosa,
   .prosa-dark {
-    @apply w-full max-w-none text-base leading-relaxed;
+    @apply w-full max-w-none text-base;
   }
 
   .prosa :where(p) {

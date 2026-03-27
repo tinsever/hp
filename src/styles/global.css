@@ -163,7 +163,7 @@
     transform: translateZ(0);
     backface-visibility: hidden;
     will-change: clip-path;
-    animation: theme-reveal-circle 0.42s cubic-bezier(0.33, 1, 0.53, 1) both;
+    animation: theme-reveal-circle 1.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   @keyframes theme-reveal-circle {
@@ -171,7 +171,9 @@
       clip-path: circle(0vmax at var(--theme-vt-x, 50%) var(--theme-vt-y, 50%));
     }
     to {
-      clip-path: circle(150vmax at var(--theme-vt-x, 50%) var(--theme-vt-y, 50%));
+      clip-path: circle(
+        150vmax at var(--theme-vt-x, 50%) var(--theme-vt-y, 50%)
+      );
     }
   }
 

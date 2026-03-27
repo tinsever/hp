@@ -33,6 +33,15 @@ import { Moon, Sun } from "lucide-astro";
         );
     }
 
+    function setViewTransitionOriginFromButton() {
+        const root = document.documentElement;
+        if (btn) {
+            const r = btn.getBoundingClientRect();
+            root.style.setProperty("--theme-vt-x", `${r.left + r.width / 2}px`);
+            root.style.setProperty("--theme-vt-y", `${r.top + r.height / 2}px`);
+        }
+    }
+
     function applyThemeToggle() {
         const root = document.documentElement;
         root.classList.toggle("dark");
@@ -42,6 +51,28 @@ import { Moon, Sun } from "lucide-astro";
         );
         syncPressed();
     }
+
+    function runThemeTransition(apply) {
+        if (!document.startViewTransition) {
+            apply();
+            return;
+        }
+        document.startViewTransition(apply);
+    }
+
+    /** When the site follows the OS (no saved preference), sync when system theme changes. */
+    const colorSchemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    colorSchemeMq.addEventListener("change", () => {
+        if (localStorage.getItem("theme")) return;
+        const root = document.documentElement;
+        const wantDark = colorSchemeMq.matches;
+        if (root.classList.contains("dark") === wantDark) return;
+        setViewTransitionOriginFromButton();
+        runThemeTransition(() => {
+            root.classList.toggle("dark", wantDark);
+            syncPressed();
+        });
+    });
 
     btn?.addEventListener("click", (e) => {
         const root = document.documentElement;
@@ -55,14 +86,7 @@ import { Moon, Sun } from "lucide-astro";
         root.style.setProperty("--theme-vt-x", `${x}px`);
         root.style.setProperty("--theme-vt-y", `${y}px`);
 
-        if (!document.startViewTransition) {
-            applyThemeToggle();
-            return;
-        }
-
-        document.startViewTransition(() => {
-            applyThemeToggle();
-        });
+        runThemeTransition(applyThemeToggle);
     });
 
     syncPressed();

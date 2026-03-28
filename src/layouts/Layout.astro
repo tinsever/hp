@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
+import CustomCursor from "../components/CustomCursor.astro";
 import LegalFooter from "../components/LegalFooter.astro";
 import Nav from "../components/Nav.astro";
 
@@ -66,5 +67,6 @@ const canonical =
             <slot />
         </div>
         <LegalFooter />
+        <CustomCursor />
     </body>
 </html>

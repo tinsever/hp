@@ -1,0 +1,24 @@
+---
+---
+
+<div
+    id="custom-cursor-root"
+    class="group pointer-events-none fixed inset-0 z-[100] hidden opacity-0"
+    aria-hidden="true"
+>
+    <span
+        id="custom-cursor-ring"
+        class="absolute left-0 top-0 size-9 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-stone-900/45 dark:border-white/45 transition-[width,height] duration-200 ease-out group-[.custom-cursor--link]:size-6"
+    ></span>
+    <span
+        id="custom-cursor-dot"
+        class="absolute left-0 top-0 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-stone-900 dark:bg-white"
+    ></span>
+</div>
+
+<script>
+    import { startCustomCursor } from "../scripts/custom-cursor";
+
+    document.addEventListener("astro:page-load", startCustomCursor);
+    startCustomCursor();
+</script>

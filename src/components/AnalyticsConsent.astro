@@ -6,10 +6,10 @@
     role="dialog"
     aria-modal="false"
     aria-labelledby="analytics-consent-title"
-    class="fixed bottom-4 right-4 z-50 hidden max-w-[min(18rem,calc(100vw-2rem))] rounded-lg border border-stone-200/90 bg-amber-50/95 px-3 py-2.5 text-stone-800 shadow-lg backdrop-blur-sm dark:border-stone-600/90 dark:bg-stone-900/95 dark:text-stone-200"
+    class="fixed inset-x-0 bottom-0 z-50 hidden w-full rounded-t-xl border-t border-stone-200/90 bg-amber-50/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 text-stone-800 shadow-[0_-8px_32px_rgba(0,0,0,0.08)] backdrop-blur-sm dark:border-stone-600/90 dark:bg-stone-900/95 dark:text-stone-200 sm:inset-x-auto sm:bottom-4 sm:right-4 sm:left-auto sm:w-auto sm:max-w-[18rem] sm:rounded-lg sm:border sm:px-3 sm:py-2.5 sm:pb-2.5 sm:shadow-lg"
 >
-    <div class="flex flex-col gap-2">
-        <div class="min-w-0 text-xs leading-snug">
+    <div class="mx-auto flex w-full max-w-4xl flex-col gap-3 sm:mx-0 sm:max-w-none sm:gap-2">
+        <div class="min-w-0 text-xs leading-snug sm:text-xs">
             <p id="analytics-consent-title" class="font-medium text-black dark:text-white">
                 Analytics (optional)
             </p>
@@ -29,18 +29,18 @@
                 >.
             </p>
         </div>
-        <div class="flex shrink-0 flex-wrap items-center justify-end gap-1.5">
+        <div class="grid grid-cols-2 gap-2 sm:flex sm:justify-end sm:gap-1.5">
             <button
                 type="button"
                 id="analytics-consent-decline"
-                class="rounded border border-stone-300 bg-transparent px-2.5 py-1 text-xs font-medium text-stone-800 transition-colors hover:bg-stone-200/80 dark:border-stone-600 dark:text-stone-200 dark:hover:bg-stone-800"
+                class="rounded border border-stone-300 bg-stone-100/90 px-3 py-2 text-xs font-medium text-stone-800 transition-colors hover:bg-stone-200/90 dark:border-stone-600 dark:bg-stone-800/90 dark:text-stone-200 dark:hover:bg-stone-700/90 sm:px-2.5 sm:py-1"
             >
                 Decline
             </button>
             <button
                 type="button"
                 id="analytics-consent-accept"
-                class="rounded bg-black px-2.5 py-1 text-xs font-medium text-amber-50 transition-colors hover:bg-stone-800 dark:bg-white dark:text-stone-900 dark:hover:bg-stone-200"
+                class="rounded border border-stone-300 bg-stone-100/90 px-3 py-2 text-xs font-medium text-stone-800 transition-colors hover:bg-stone-200/90 dark:border-stone-600 dark:bg-stone-800/90 dark:text-stone-200 dark:hover:bg-stone-700/90 sm:px-2.5 sm:py-1"
             >
                 Accept
             </button>

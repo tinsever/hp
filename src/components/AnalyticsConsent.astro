@@ -1,0 +1,92 @@
+---
+---
+
+<div
+    id="analytics-consent-banner"
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="analytics-consent-title"
+    class="fixed bottom-4 right-4 z-50 hidden max-w-[min(18rem,calc(100vw-2rem))] rounded-lg border border-stone-200/90 bg-amber-50/95 px-3 py-2.5 text-stone-800 shadow-lg backdrop-blur-sm dark:border-stone-600/90 dark:bg-stone-900/95 dark:text-stone-200"
+>
+    <div class="flex flex-col gap-2">
+        <div class="min-w-0 text-xs leading-snug">
+            <p id="analytics-consent-title" class="font-medium text-black dark:text-white">
+                Analytics (optional)
+            </p>
+            <p class="mt-1 text-stone-600 dark:text-stone-400">
+                With your consent, this site uses{" "}
+                <a
+                    href="https://posthog.com/"
+                    class="text-black underline decoration-stone-400 underline-offset-2 hover:decoration-black dark:text-white dark:hover:decoration-white"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    >PostHog</a
+                >
+                {" "}
+                (EU) for analytics. Decline = no tracking.{" "}
+                <a href="/legal#analytics-posthog" class="underline decoration-stone-400 underline-offset-2 hover:decoration-black dark:hover:decoration-white"
+                    >Privacy</a
+                >.
+            </p>
+        </div>
+        <div class="flex shrink-0 flex-wrap items-center justify-end gap-1.5">
+            <button
+                type="button"
+                id="analytics-consent-decline"
+                class="rounded border border-stone-300 bg-transparent px-2.5 py-1 text-xs font-medium text-stone-800 transition-colors hover:bg-stone-200/80 dark:border-stone-600 dark:text-stone-200 dark:hover:bg-stone-800"
+            >
+                Decline
+            </button>
+            <button
+                type="button"
+                id="analytics-consent-accept"
+                class="rounded bg-black px-2.5 py-1 text-xs font-medium text-amber-50 transition-colors hover:bg-stone-800 dark:bg-white dark:text-stone-900 dark:hover:bg-stone-200"
+            >
+                Accept
+            </button>
+        </div>
+    </div>
+</div>
+
+<script is:inline>
+    (function () {
+        var KEY = "posthog_analytics_consent";
+        var banner = document.getElementById("analytics-consent-banner");
+        if (!banner) return;
+        try {
+            var v = localStorage.getItem(KEY);
+            if (v === "granted" || v === "denied") return;
+        } catch (e) {
+            return;
+        }
+        banner.classList.remove("hidden");
+
+        function hide() {
+            banner.classList.add("hidden");
+        }
+
+        document.getElementById("analytics-consent-accept")?.addEventListener("click", function () {
+            try {
+                localStorage.setItem(KEY, "granted");
+            } catch {
+                /* ignore */
+            }
+            if (typeof posthog !== "undefined" && posthog.opt_in_capturing) {
+                posthog.opt_in_capturing();
+            }
+            hide();
+        });
+
+        document.getElementById("analytics-consent-decline")?.addEventListener("click", function () {
+            try {
+                localStorage.setItem(KEY, "denied");
+            } catch {
+                /* ignore */
+            }
+            if (typeof posthog !== "undefined" && posthog.opt_out_capturing) {
+                posthog.opt_out_capturing();
+            }
+            hide();
+        });
+    })();
+</script>

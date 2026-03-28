@@ -2,8 +2,10 @@
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import CustomCursor from "../components/CustomCursor.astro";
+import AnalyticsConsent from "../components/AnalyticsConsent.astro";
 import LegalFooter from "../components/LegalFooter.astro";
 import Nav from "../components/Nav.astro";
+import PostHogLayout from "./PostHogLayout.astro";
 
 interface Props {
     title?: string;
@@ -55,6 +57,7 @@ const canonical =
                     root.classList.add("dark");
             })();
         </script>
+        <PostHogLayout />
         <ClientRouter />
     </head>
     <body
@@ -67,6 +70,7 @@ const canonical =
             <slot />
         </div>
         <LegalFooter />
+        <AnalyticsConsent />
         <CustomCursor />
     </body>
 </html>

@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-const lastUpdated = "March 22, 2025";
+const lastUpdated = "March 28, 2026";
 ---
 
 <Layout
@@ -215,17 +215,119 @@ const lastUpdated = "March 22, 2025";
                     <h3
                         class="text-base font-semibold text-black dark:text-white"
                     >
-                        2.6 Cookies and similar technologies
+                        2.6 Cookies, local storage, and similar technologies
                     </h3>
                     <p>
-                        This website does not use cookies that require consent.
-                        At present, this website does not use analytics,
-                        tracking, marketing cookies, or similar consent-based
-                        technologies.
+                        A display preference (light or dark mode) may be stored
+                        locally in your browser (for example via{" "}
+                        <code class="rounded bg-stone-200/80 px-1 py-0.5 font-mono text-xs dark:bg-stone-800"
+                            >localStorage</code
+                        >) and is not sent to the server. This does not require
+                        consent under the ePrivacy rules applicable in many EU
+                        member states because it is strictly necessary for a
+                        function you request (theme preference).
+                    </p>
+                </div>
+
+                <div class="space-y-3" id="analytics-posthog">
+                    <h3
+                        class="text-base font-semibold text-black dark:text-white"
+                    >
+                        2.7 Product analytics (PostHog Cloud EU)
+                    </h3>
+                    <p>
+                        If and only if you explicitly consent via the analytics
+                        banner, this website loads{" "}
+                        <strong class="text-black dark:text-white">PostHog</strong>{" "}
+                        (<a
+                            href="https://posthog.com/"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            >PostHog, Inc.</a
+                        >) as a <strong class="text-black dark:text-white"
+                            >processor</strong
+                        > for product analytics. The service used is{" "}
+                        <strong class="text-black dark:text-white"
+                            >PostHog Cloud in the EU</strong>{" "}
+                        (<code class="rounded bg-stone-200/80 px-1 py-0.5 font-mono text-xs dark:bg-stone-800"
+                            >eu.i.posthog.com</code
+                        >), so analytics data is processed in that environment
+                        subject to PostHog&apos;s terms and security measures.
                     </p>
                     <p>
-                        A display preference (light or dark mode) may be stored
-                        locally in your browser and is not sent to the server.
+                        Depending on configuration and product features, PostHog
+                        may process data such as page views, click and
+                        interaction events, coarse device/browser metadata, and
+                        pseudonymous identifiers. Session replay is{" "}
+                        <strong class="text-black dark:text-white"
+                            >disabled</strong>{" "}
+                        in the integration on this website. IP address capture is
+                        expected to remain{" "}
+                        <strong class="text-black dark:text-white"
+                            >disabled</strong>{" "}
+                        at the project level (recommended default for PostHog
+                        Cloud EU); you can review the current setting in the
+                        PostHog project.
+                    </p>
+                    <p>
+                        <strong class="text-black dark:text-white"
+                            >Legal basis:</strong
+                        >
+                        {" "}
+                        Art. 6(1)(a) GDPR (consent). You may withdraw consent at
+                        any time with effect for the future, without affecting
+                        the lawfulness of processing based on consent before its
+                        withdrawal.
+                    </p>
+                    <p>
+                        Further information from PostHog:{" "}
+                        <a
+                            href="https://posthog.com/privacy"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            >Privacy policy</a
+                        >
+                        {" "}
+                        ·{" "}
+                        <a
+                            href="https://posthog.com/docs/privacy/gdpr-compliance"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            >GDPR overview</a
+                        >.
+                    </p>
+                    <p>
+                        To exercise the right to erasure in respect of analytics
+                        data processed via PostHog, you can contact me at the
+                        email address above. I will handle requests using
+                        PostHog&apos;s data deletion features where applicable.
+                    </p>
+                    <p class="flex flex-wrap items-center gap-3">
+                        <button
+                            type="button"
+                            id="withdraw-posthog-consent"
+                            class="rounded border border-stone-300 bg-transparent px-3 py-1.5 text-sm font-medium text-stone-800 transition-colors hover:bg-stone-200/80 dark:border-stone-600 dark:text-stone-200 dark:hover:bg-stone-800"
+                        >
+                            Withdraw analytics consent
+                        </button>
+                        <button
+                            type="button"
+                            id="reset-posthog-consent-choice"
+                            class="rounded border border-stone-300 bg-transparent px-3 py-1.5 text-sm font-medium text-stone-800 transition-colors hover:bg-stone-200/80 dark:border-stone-600 dark:text-stone-200 dark:hover:bg-stone-800"
+                        >
+                            Show consent banner again
+                        </button>
+                        <span
+                            id="withdraw-posthog-status"
+                            class="text-sm text-stone-600 dark:text-stone-400"
+                            aria-live="polite"
+                        ></span>
+                    </p>
+                    <p class="text-sm text-stone-600 dark:text-stone-400">
+                        &ldquo;Withdraw&rdquo; records a decline and stops
+                        analytics. &ldquo;Show consent banner again&rdquo; clears
+                        your choice so you can accept or decline on the next page
+                        load.
                     </p>
                 </div>
 
@@ -233,7 +335,7 @@ const lastUpdated = "March 22, 2025";
                     <h3
                         class="text-base font-semibold text-black dark:text-white"
                     >
-                        2.7 Recipients of data
+                        2.8 Recipients of data
                     </h3>
                     <p>
                         Personal data may be disclosed to service providers only
@@ -242,6 +344,10 @@ const lastUpdated = "March 22, 2025";
                     </p>
                     <ul class="list-disc space-y-1 pl-5">
                         <li>the hosting provider</li>
+                        <li>
+                            PostHog Cloud EU (product analytics), if you have
+                            given consent
+                        </li>
                         <li>IT or security service providers, if applicable</li>
                     </ul>
                     <p>
@@ -254,7 +360,7 @@ const lastUpdated = "March 22, 2025";
                     <h3
                         class="text-base font-semibold text-black dark:text-white"
                     >
-                        2.8 International data transfers
+                        2.9 International data transfers
                     </h3>
                     <p>
                         Where personal data is transferred to recipients outside
@@ -268,7 +374,7 @@ const lastUpdated = "March 22, 2025";
                     <h3
                         class="text-base font-semibold text-black dark:text-white"
                     >
-                        2.9 Retention period
+                        2.10 Retention period
                     </h3>
                     <p>
                         Personal data is stored only for as long as necessary
@@ -287,7 +393,7 @@ const lastUpdated = "March 22, 2025";
                     <h3
                         class="text-base font-semibold text-black dark:text-white"
                     >
-                        2.10 Your rights under the GDPR
+                        2.11 Your rights under the GDPR
                     </h3>
                     <p>
                         You have the following rights, subject to the applicable
@@ -314,7 +420,7 @@ const lastUpdated = "March 22, 2025";
                     <h3
                         class="text-base font-semibold text-black dark:text-white"
                     >
-                        2.11 Right to lodge a complaint
+                        2.12 Right to lodge a complaint
                     </h3>
                     <p>
                         You also have the right to lodge a complaint with a
@@ -328,7 +434,7 @@ const lastUpdated = "March 22, 2025";
                     <h3
                         class="text-base font-semibold text-black dark:text-white"
                     >
-                        2.12 No obligation to provide data
+                        2.13 No obligation to provide data
                     </h3>
                     <p>
                         You are generally not legally or contractually required
@@ -343,7 +449,7 @@ const lastUpdated = "March 22, 2025";
                     <h3
                         class="text-base font-semibold text-black dark:text-white"
                     >
-                        2.13 Changes to this Privacy Policy
+                        2.14 Changes to this Privacy Policy
                     </h3>
                     <p>
                         I may update this Privacy Policy from time to time in
@@ -355,4 +461,40 @@ const lastUpdated = "March 22, 2025";
             </section>
         </div>
     </main>
+    <script is:inline>
+        (function () {
+            var status = document.getElementById("withdraw-posthog-status");
+            var withdraw = document.getElementById("withdraw-posthog-consent");
+            if (withdraw) {
+                withdraw.addEventListener("click", function () {
+                    try {
+                        localStorage.setItem("posthog_analytics_consent", "denied");
+                    } catch (e) {
+                        /* ignore */
+                    }
+                    if (typeof posthog !== "undefined" && posthog.opt_out_capturing) {
+                        posthog.opt_out_capturing();
+                    }
+                    if (status) {
+                        status.textContent =
+                            "Consent withdrawn. Analytics stays off in this browser.";
+                    }
+                });
+            }
+            var reset = document.getElementById("reset-posthog-consent-choice");
+            if (reset) {
+                reset.addEventListener("click", function () {
+                    try {
+                        localStorage.removeItem("posthog_analytics_consent");
+                    } catch (e) {
+                        /* ignore */
+                    }
+                    if (typeof posthog !== "undefined" && posthog.opt_out_capturing) {
+                        posthog.opt_out_capturing();
+                    }
+                    location.reload();
+                });
+            }
+        })();
+    </script>
 </Layout>

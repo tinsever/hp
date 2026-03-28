@@ -139,9 +139,9 @@
     "Liberation Mono", "Courier New", monospace;
 }
 
-/* Theme toggle: circular reveal from click (View Transitions API) */
+/* View Transitions: page navigations (ClientRouter) + theme toggle */
 @supports (view-transition-name: none) {
-  /* UA group morph fights a custom root reveal and costs extra compositing work */
+  /* UA group morph fights custom root animations and costs extra compositing work */
   ::view-transition-group(root),
   ::view-transition-image-pair(root) {
     animation: none !important;
@@ -152,14 +152,49 @@
     mix-blend-mode: normal;
   }
 
-  ::view-transition-old(root) {
+  /* In-page route changes: fade + subtle lift / settle */
+  html:not(.theme-vt) ::view-transition-old(root) {
+    z-index: 1;
+    animation: vt-page-out 0.34s cubic-bezier(0.4, 0, 1, 1) both;
+  }
+
+  html:not(.theme-vt) ::view-transition-new(root) {
+    z-index: 2;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    animation: vt-page-in 0.52s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes vt-page-out {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-0.35rem) scale(0.985);
+    }
+  }
+
+  @keyframes vt-page-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.85rem) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Theme toggle only: circular reveal from click */
+  html.theme-vt ::view-transition-old(root) {
     z-index: 1;
     animation: none;
   }
 
-  ::view-transition-new(root) {
+  html.theme-vt ::view-transition-new(root) {
     z-index: 2;
-    /* Own layer + clip-path hint — smoother than default stacking alone */
     transform: translateZ(0);
     backface-visibility: hidden;
     will-change: clip-path;
@@ -178,7 +213,12 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    ::view-transition-new(root) {
+    html:not(.theme-vt) ::view-transition-old(root),
+    html:not(.theme-vt) ::view-transition-new(root) {
+      animation-duration: 0.01ms !important;
+    }
+
+    html.theme-vt ::view-transition-new(root) {
       animation-duration: 0.01ms !important;
       will-change: auto;
     }

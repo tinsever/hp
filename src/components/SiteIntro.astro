@@ -1,34 +1,32 @@
+---
+import { Github, Mail, Twitter } from "lucide-astro";
+---
+
 <div class="max-w-4xl px-4 mx-auto">
     <h1 class="font-light">Tin Sever</h1>
-    <div class="flex py-3 gap-2 text-stone-600 dark:text-white/50">
+    <div
+        class="flex items-center gap-4 py-3 text-stone-600 dark:text-white/50"
+    >
         <a
             href="https://github.com/tinsever"
-            class="no-underline transition-colors hover:text-black dark:hover:text-white">github</a
+            class="rounded-md p-1 -m-1 no-underline transition-colors hover:text-black dark:hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-400 dark:focus-visible:outline-stone-500"
+            aria-label="GitHub"
         >
-        <span>/</span>
-        <span class="group relative inline-block">
-            <a
-                href="https://s.tin-sever.de"
-                class="transition-colors hover:text-black dark:hover:text-white"
-                aria-describedby="docs-tooltip">t2s</a
-            >
-            <span
-                id="docs-tooltip"
-                role="tooltip"
-                class="pointer-events-none absolute top-[calc(100%+0.35rem)] left-1/2 z-20 w-max max-w-[min(18rem,calc(100vw-2rem))] -translate-x-1/2 rounded-md bg-stone-900 px-2.5 py-1.5 text-center text-xs font-mono leading-snug text-amber-50 opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100 dark:bg-stone-100 dark:text-stone-900"
-                >Docs for projects I actively maintain and can be used by
-                others.</span
-            >
-        </span>
-        <span>/</span>
+            <Github size={20} aria-hidden="true" />
+        </a>
         <a
             href="https://x.com/10xtin"
-            class="no-underline transition-colors hover:text-black dark:hover:text-white">x</a
+            class="rounded-md p-1 -m-1 no-underline transition-colors hover:text-black dark:hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-400 dark:focus-visible:outline-stone-500"
+            aria-label="X (Twitter)"
         >
-        <span>/</span>
+            <Twitter size={20} aria-hidden="true" />
+        </a>
         <a
             href="mailto:t2sever@pm.me"
-            class="no-underline transition-colors hover:text-black dark:hover:text-white">mail</a
+            class="rounded-md p-1 -m-1 no-underline transition-colors hover:text-black dark:hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-400 dark:focus-visible:outline-stone-500"
+            aria-label="Email"
         >
+            <Mail size={20} aria-hidden="true" />
+        </a>
     </div>
 </div>

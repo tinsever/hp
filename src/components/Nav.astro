@@ -3,6 +3,7 @@ import { Moon, Sun } from "lucide-astro";
 ---
 
 <header
+    transition:persist
     class="flex items-center justify-between gap-8 px-4 py-6 font-mono max-w-4xl mx-auto text-stone-600 dark:text-white/50"
 >
     <nav class="flex gap-8">
@@ -52,12 +53,16 @@ import { Moon, Sun } from "lucide-astro";
         syncPressed();
     }
 
-    function runThemeTransition(apply) {
+    function runThemeTransition(apply: () => void) {
         if (!document.startViewTransition) {
             apply();
             return;
         }
-        document.startViewTransition(apply);
+        document.documentElement.classList.add("theme-vt");
+        const vt = document.startViewTransition(apply);
+        void vt.finished.finally(() => {
+            document.documentElement.classList.remove("theme-vt");
+        });
     }
 
     /** When the site follows the OS (no saved preference), sync when system theme changes. */

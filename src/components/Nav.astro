@@ -94,5 +94,8 @@ import { Moon, Sun } from "lucide-astro";
         runThemeTransition(applyThemeToggle);
     });
 
+    /** View transitions replace `<html>` attrs from SSR; re-sync aria after each navigation. */
+    document.addEventListener("astro:page-load", syncPressed);
+
     syncPressed();
 </script>

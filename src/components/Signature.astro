@@ -1,0 +1,145 @@
+---
+// Inline stroke signature from /public/signature.svg — draw-on via CSS dash animation
+---
+
+<div
+    class="signature-wrap max-w-[35px] text-stone-900 dark:text-white"
+    data-signature-draw
+    aria-hidden="true"
+>
+    <svg
+        class="block h-auto w-full"
+        width="100%"
+        height="100%"
+        viewBox="0 0 1205 1452"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <g transform="matrix(1,0,0,1,-783.62047,-1273.709189)">
+            <g transform="matrix(37.923201,0,0,37.923201,-29369.877256,-47465.52171)">
+                <path
+                    class="signature-stroke"
+                    pathLength="1"
+                    d="M824.098,1293.467C823.953,1293.444 806.424,1289.814 805.254,1294.702C802.736,1305.227 824.598,1302.076 822.502,1312.49C821.26,1318.663 806.649,1313.777 805.738,1313.259C803.874,1312.201 811.796,1310.461 813.861,1285.52C813.893,1304.351 814.064,1304.276 813.166,1323.16C813.175,1321.522 813.761,1304.786 815.681,1303.057C817.034,1301.838 825.617,1301.251 826.576,1301.231C810.187,1302.743 811.848,1301.231 795.431,1301.231"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="0.62"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            </g>
+        </g>
+    </svg>
+</div>
+
+<style>
+    .signature-stroke {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+    }
+
+    .signature-wrap.is-visible .signature-stroke {
+        animation: signature-draw 2.4s cubic-bezier(0.33, 1, 0.68, 1) 0.15s forwards;
+    }
+
+    @keyframes signature-draw {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .signature-stroke {
+            stroke-dashoffset: 0;
+        }
+
+        .signature-wrap.is-visible .signature-stroke {
+            animation: none;
+        }
+    }
+</style>
+
+<script>
+    /** Midpoint of the *visible* part of `el` in the viewport (not full layout box). */
+    function visibleBandMidY(el) {
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const overlapTop = Math.max(0, rect.top);
+        const overlapBottom = Math.min(vh, rect.bottom);
+        const visibleH = Math.max(0, overlapBottom - overlapTop);
+        if (visibleH < 1) return null;
+        return overlapTop + visibleH / 2;
+    }
+
+    function shouldStartDraw(el) {
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight;
+        
+        // If the element is fully visible in the viewport, start drawing
+        if (rect.bottom <= vh && rect.top >= 0) return true;
+
+        const mid = visibleBandMidY(el);
+        if (mid == null) return false;
+        // Visible band’s midpoint clears the bottom ~12% (no “just peeking” edge)
+        return mid < vh * 0.88;
+    }
+
+    function initSignatureDraw() {
+        const wrap = document.querySelector("[data-signature-draw]");
+        if (!wrap) return;
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            wrap.classList.add("is-visible");
+            return;
+        }
+
+        if (wrap.classList.contains("is-visible")) return;
+
+        const prev = wrap._signatureCleanup;
+        if (typeof prev === "function") prev();
+
+        const thresholds = Array.from({ length: 21 }, (_, i) => i / 20);
+
+        const finish = () => {
+            wrap.classList.add("is-visible");
+            io.disconnect();
+            window.removeEventListener("scroll", onScroll, true);
+            window.removeEventListener("resize", onScroll);
+            wrap._signatureCleanup = undefined;
+        };
+
+        const tryReveal = () => {
+            if (wrap.classList.contains("is-visible")) return;
+            if (shouldStartDraw(wrap)) finish();
+        };
+
+        const onScroll = () => {
+            tryReveal();
+        };
+
+        const io = new IntersectionObserver(
+            (entries) => {
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        tryReveal();
+                        return;
+                    }
+                }
+            },
+            { root: null, rootMargin: "0px", threshold: thresholds },
+        );
+
+        wrap._signatureCleanup = () => {
+            io.disconnect();
+            window.removeEventListener("scroll", onScroll, true);
+            window.removeEventListener("resize", onScroll);
+        };
+
+        io.observe(wrap);
+        window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+        window.addEventListener("resize", onScroll);
+        tryReveal();
+    }
+
+    initSignatureDraw();
+    document.addEventListener("astro:page-load", initSignatureDraw);
+</script>

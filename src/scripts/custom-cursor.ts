@@ -51,8 +51,7 @@ export function startCustomCursor(): void {
     function onMove(e: MouseEvent): void {
         mouseX = e.clientX;
         mouseY = e.clientY;
-        const t = e.target;
-        const el = t instanceof Element ? t : t.parentElement;
+        const el = e.target instanceof Element ? e.target : null;
         const onInteractive =
             el?.closest(
                 'a[href], button:not([disabled]), [role="button"]:not([disabled])',

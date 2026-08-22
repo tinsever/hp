@@ -59,8 +59,12 @@
 </style>
 
 <script>
+    type SignatureElement = HTMLElement & {
+        _signatureCleanup?: () => void;
+    };
+
     /** Midpoint of the *visible* part of `el` in the viewport (not full layout box). */
-    function visibleBandMidY(el) {
+    function visibleBandMidY(el: Element): number | null {
         const rect = el.getBoundingClientRect();
         const vh = window.innerHeight;
         const overlapTop = Math.max(0, rect.top);
@@ -70,7 +74,7 @@
         return overlapTop + visibleH / 2;
     }
 
-    function shouldStartDraw(el) {
+    function shouldStartDraw(el: Element): boolean {
         const rect = el.getBoundingClientRect();
         const vh = window.innerHeight;
         
@@ -84,7 +88,9 @@
     }
 
     function initSignatureDraw() {
-        const wrap = document.querySelector("[data-signature-draw]");
+        const wrap = document.querySelector<SignatureElement>(
+            "[data-signature-draw]",
+        );
         if (!wrap) return;
 
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

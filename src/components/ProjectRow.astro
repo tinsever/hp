@@ -1,23 +1,48 @@
 ---
+import { Star } from "lucide-astro";
+
 interface Props {
     name: string;
     href: string;
     desc: string;
+    featured?: boolean;
+    stars?: number;
 }
 
-const { name, href, desc } = Astro.props;
+const { name, href, desc, featured = false, stars } = Astro.props;
+const starLabel =
+    stars == null
+        ? null
+        : new Intl.NumberFormat("en", {
+              notation: "compact",
+              maximumFractionDigits: 1,
+          }).format(stars);
 ---
 
-<li
-    class="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm"
->
+<li class="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm">
     <a
         href={href}
-        class="font-mono shrink-0 text-stone-900 transition-colors hover:text-black dark:text-stone-100 dark:hover:text-white"
-        >{name}</a
+        class:list={[
+            "shrink-0 font-mono text-stone-900 transition-colors hover:text-black dark:text-stone-100 dark:hover:text-white",
+            featured && "font-medium",
+        ]}
     >
-    <span class="text-stone-400 dark:text-white/35 select-none" aria-hidden="true"
-        >/</span
-    >
+        {name}
+    </a>
+    {
+        featured && starLabel && (
+            <span
+                class="inline-flex items-center gap-1 font-mono text-xs tabular-nums text-stone-500 dark:text-white/45"
+                title={`${stars?.toLocaleString("en")} GitHub stars`}
+                aria-label={`${stars?.toLocaleString("en")} GitHub stars`}
+            >
+                <Star size={11} strokeWidth={1.8} fill="currentColor" aria-hidden="true" />
+                {starLabel}
+            </span>
+        )
+    }
+    <span class="select-none text-stone-400 dark:text-white/35" aria-hidden="true">
+        /
+    </span>
     <span class="min-w-0 text-stone-600 dark:text-white/55">{desc}</span>
 </li>

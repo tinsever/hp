@@ -4,11 +4,38 @@ import SiteIntro from "../components/SiteIntro.astro";
 import SiteBio from "../components/SiteBio.astro";
 import ProjectsSection from "../components/ProjectsSection.astro";
 
-const projects: { name: string; href: string; desc: string }[] = [
+interface Project {
+    name: string;
+    href: string;
+    desc: string;
+    featured?: boolean;
+    stars?: number;
+}
+
+let kaneoStars: number | undefined;
+
+try {
+    const response = await fetch("https://api.github.com/repos/usekaneo/kaneo", {
+        headers: { Accept: "application/vnd.github+json" },
+    });
+
+    if (response.ok) {
+        const repository = (await response.json()) as {
+            stargazers_count?: number;
+        };
+        kaneoStars = repository.stargazers_count;
+    }
+} catch {
+    // The featured project still renders if GitHub is unavailable during a build.
+}
+
+const projects: Project[] = [
     {
         name: "Kaneo",
         href: "https://github.com/usekaneo/kaneo",
         desc: "Open-source project management that works for you, not against you.",
+        featured: true,
+        stars: kaneoStars,
     },
     {
         name: "GFCLI",

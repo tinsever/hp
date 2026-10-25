@@ -1,0 +1,70 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+    limit?: number;
+}
+
+const { limit = 5 } = Astro.props;
+
+const all = (
+    await getCollection("blog", ({ data }) =>
+        import.meta.env.PROD ? data.draft !== true : true,
+    )
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = all.slice(0, limit);
+
+const formatDate = (d: Date) =>
+    d.toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+---
+
+{
+    posts.length > 0 && (
+        <section
+            class="max-w-2xl mx-auto px-4 mt-16 grid gap-y-6 sm:grid-cols-[7rem_1fr] sm:gap-x-8"
+            aria-labelledby="blog-heading"
+        >
+            <h2
+                id="blog-heading"
+                class="text-base font-normal tracking-normal leading-[inherit] text-stone-500 dark:text-white/45"
+            >
+                Blog
+            </h2>
+            <div>
+                <ul class="list-none p-0 m-0 space-y-8">
+                    {posts.map((post) => (
+                        <li>
+                            <a
+                                href={`/blog/${post.id}`}
+                                class="group grid grid-cols-[1fr_auto] items-baseline gap-x-6 no-underline sm:gap-x-10 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-stone-400 dark:focus-visible:outline-stone-500"
+                            >
+                                <div class="min-w-0">
+                                    <span class="font-medium text-stone-900 group-hover:text-gradient dark:text-stone-100">
+                                        {post.data.title}
+                                    </span>
+                                    <p class="mt-1 text-stone-500 dark:text-white/50">
+                                        {post.data.description}
+                                    </p>
+                                </div>
+                                <time
+                                    class="font-mono text-xs tabular-nums text-stone-400 transition-colors group-hover:text-stone-700 dark:text-white/40 dark:group-hover:text-white/70"
+                                    datetime={post.data.pubDate.toISOString().slice(0, 10)}
+                                >
+                                    {formatDate(post.data.pubDate)}
+                                </time>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+                {all.length > posts.length && (
+                    <a
+                        href="/blog"
+                        class="mt-8 inline-block no-underline text-stone-500 transition-colors hover:text-stone-900 dark:text-white/45 dark:hover:text-white"
+                    >
+                        All posts →
+                    </a>
+                )}
+            </div>
+        </section>
+    )
+}

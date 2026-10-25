@@ -1,0 +1,27 @@
+---
+// Renders a project's own logo from src/assets/project-logos/<name>.svg.
+// SVGs should use currentColor so they follow the theme and hover color.
+const logos = import.meta.glob<string>("../assets/project-logos/*.svg", {
+    query: "?raw",
+    import: "default",
+    eager: true,
+});
+
+interface Props {
+    name: string;
+    class?: string;
+}
+
+const { name, class: className } = Astro.props;
+const svg = logos[`../assets/project-logos/${name}.svg`];
+---
+
+{
+    svg && (
+        <span
+            class:list={["flex items-center justify-center [&>svg]:h-full [&>svg]:w-full", className]}
+            aria-hidden="true"
+            set:html={svg}
+        />
+    )
+}

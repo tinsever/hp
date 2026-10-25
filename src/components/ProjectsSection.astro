@@ -5,6 +5,7 @@ interface Project {
     name: string;
     href: string;
     desc: string;
+    logo?: string;
     featured?: boolean;
     stars?: number;
 }
@@ -16,9 +17,17 @@ interface Props {
 const { projects } = Astro.props;
 ---
 
-<section class="max-w-4xl mx-auto px-4 mt-8">
-    <h3 class="font-light">Projects</h3>
-    <ul class="mt-5 space-y-3.5 list-none p-0">
+<section
+    class="max-w-2xl mx-auto px-4 mt-14 grid gap-y-6 sm:grid-cols-[7rem_1fr] sm:gap-x-8"
+    aria-labelledby="projects-heading"
+>
+    <h2
+        id="projects-heading"
+        class="text-base font-normal tracking-normal leading-[inherit] text-stone-500 dark:text-white/45"
+    >
+        Projects
+    </h2>
+    <ul class="list-none p-0 m-0 space-y-8">
         {projects.map((p) => <ProjectRow {...p} />)}
     </ul>
 </section>

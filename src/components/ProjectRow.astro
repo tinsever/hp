@@ -1,15 +1,17 @@
 ---
 import { Star } from "lucide-astro";
+import ProjectLogo from "./ProjectLogo.astro";
 
 interface Props {
     name: string;
     href: string;
     desc: string;
+    logo?: string;
     featured?: boolean;
     stars?: number;
 }
 
-const { name, href, desc, featured = false, stars } = Astro.props;
+const { name, href, desc, logo, featured = false, stars } = Astro.props;
 const starLabel =
     stars == null
         ? null
@@ -19,30 +21,40 @@ const starLabel =
           }).format(stars);
 ---
 
-<li class="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm">
+<li>
     <a
         href={href}
-        class:list={[
-            "shrink-0 font-mono text-stone-900 transition-colors hover:text-black dark:text-stone-100 dark:hover:text-white",
-            featured && "font-medium",
-        ]}
+        class="group grid grid-cols-[1fr_3.5rem] items-center gap-x-6 no-underline sm:grid-cols-[1fr_4rem] sm:gap-x-10 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-stone-400 dark:focus-visible:outline-stone-500"
     >
-        {name}
+        <div class="min-w-0">
+            <div class="flex items-baseline gap-2">
+                <span
+                    class="font-medium text-stone-900 group-hover:text-gradient dark:text-stone-100"
+                >
+                    {name}
+                </span>
+                {
+                    featured && starLabel && (
+                        <span
+                            class="inline-flex items-center gap-1 font-mono text-xs tabular-nums text-stone-500 dark:text-white/45"
+                            title={`${stars?.toLocaleString("en")} GitHub stars`}
+                            aria-label={`${stars?.toLocaleString("en")} GitHub stars`}
+                        >
+                            <Star size={11} strokeWidth={1.8} fill="currentColor" aria-hidden="true" />
+                            {starLabel}
+                        </span>
+                    )
+                }
+            </div>
+            <p class="mt-1 text-stone-500 dark:text-white/50">{desc}</p>
+        </div>
+        {
+            logo && (
+                <ProjectLogo
+                    name={logo}
+                    class="h-10 text-stone-400 transition-colors duration-300 group-hover:text-stone-800 dark:text-white/45 dark:group-hover:text-white"
+                />
+            )
+        }
     </a>
-    {
-        featured && starLabel && (
-            <span
-                class="inline-flex items-center gap-1 font-mono text-xs tabular-nums text-stone-500 dark:text-white/45"
-                title={`${stars?.toLocaleString("en")} GitHub stars`}
-                aria-label={`${stars?.toLocaleString("en")} GitHub stars`}
-            >
-                <Star size={11} strokeWidth={1.8} fill="currentColor" aria-hidden="true" />
-                {starLabel}
-            </span>
-        )
-    }
-    <span class="select-none text-stone-400 dark:text-white/35" aria-hidden="true">
-        /
-    </span>
-    <span class="min-w-0 text-stone-600 dark:text-white/55">{desc}</span>
 </li>

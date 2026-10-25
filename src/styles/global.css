@@ -2,67 +2,54 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Orange-only text gradient: a warm highlight and a deeper ember drifting over orange */
+:root {
+  --text-gradient:
+    radial-gradient(circle at 25% 30%, #f59e0b, transparent 30%),
+    radial-gradient(circle at 75% 70%, #9a3412, transparent 35%),
+    linear-gradient(135deg, #f97316, #ea580c 50%, #c2410c);
+}
+.dark {
+  --text-gradient:
+    radial-gradient(circle at 25% 30%, #fcd34d, transparent 30%),
+    radial-gradient(circle at 75% 70%, #dc2626, transparent 35%),
+    linear-gradient(135deg, #fb923c, #f97316 50%, #ea580c);
+}
+
+@keyframes text-gradient-drift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 100%; }
+}
+
+@utility text-gradient {
+  background-image: var(--text-gradient);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-gradient-drift 9s ease-in-out infinite alternate;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background-position: 50% 50%;
+  }
+}
+
 @font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-100.woff2") format("woff2");
-  font-weight: 100;
+  font-family: "Inter";
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-200.woff2") format("woff2");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-300.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-500.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-600.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-700.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-800.woff2") format("woff2");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-900.woff2") format("woff2");
-  font-weight: 900;
-  font-style: normal;
+  font-family: "Inter";
+  src: url("/fonts/InterVariable-Italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -132,7 +119,7 @@
 
 @theme {
   --font-sans:
-    "Geist", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono:
     "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,

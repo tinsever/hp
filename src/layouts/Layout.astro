@@ -2,10 +2,8 @@
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import CustomCursor from "../components/CustomCursor.astro";
-import AnalyticsConsent from "../components/AnalyticsConsent.astro";
 import LegalFooter from "../components/LegalFooter.astro";
 import Nav from "../components/Nav.astro";
-import PostHogLayout from "./PostHogLayout.astro";
 
 interface Props {
     title?: string;
@@ -33,7 +31,9 @@ const canonical =
 <html lang="en">
     <head>
         <meta charset="utf-8" />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="viewport" content="width=device-width" />
         {noindex && <meta name="robots" content="noindex" />}
         <meta name="generator" content={Astro.generator} />
@@ -67,20 +67,34 @@ const canonical =
                 );
             })();
         </script>
-        <PostHogLayout />
         <ClientRouter />
     </head>
     <body
-        class="flex min-h-dvh flex-col bg-amber-50 font-sans text-black dark:bg-stone-900 dark:text-white"
+        class="flex min-h-dvh flex-col bg-amber-50 font-sans text-black dark:bg-[#0A0A0A] dark:text-white"
     >
         <div class="w-full shrink-0">
             <Nav />
         </div>
+        <!-- Soft blur along the top edge of the viewport, shown once the page is scrolled -->
+        <div
+            id="top-blur"
+            class="pointer-events-none fixed inset-x-0 top-0 z-40 h-14 bg-amber-50/40 opacity-0 backdrop-blur-[6px] transition-opacity duration-300 [mask-image:linear-gradient(to_bottom,black_30%,transparent)] data-[scrolled]:opacity-100 dark:bg-[#0A0A0A]/40"
+            aria-hidden="true"
+        >
+        </div>
+        <script>
+            const syncTopBlur = () =>
+                document
+                    .getElementById("top-blur")
+                    ?.toggleAttribute("data-scrolled", window.scrollY > 4);
+            window.addEventListener("scroll", syncTopBlur, { passive: true });
+            document.addEventListener("astro:page-load", syncTopBlur);
+            syncTopBlur();
+        </script>
         <div class="flex min-h-0 w-full flex-1 flex-col pb-8">
             <slot />
         </div>
         <LegalFooter />
-        <AnalyticsConsent />
         <CustomCursor />
     </body>
 </html>

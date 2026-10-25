@@ -23,7 +23,7 @@ Set the public site URL in `astro.config.mjs` (`site`) so canonical URLs and Ope
 
 ## Fonts
 
-This repo ships [Geist](https://github.com/vercel/geist-font) and Geist Mono (WOFF2) under `public/fonts/`. Font files are subject to the [Geist font license](https://github.com/vercel/geist-font/blob/main/LICENSE.txt); the MIT license in this repo applies to the site source code, not to those font binaries.
+This repo uses self-hosted [Inter](https://github.com/rsms/inter) for sans-serif text and [Geist Mono](https://github.com/vercel/geist-font) for monospace text. WOFF2 files live under `public/fonts/`. Inter is licensed under the SIL Open Font License — see [Inter-LICENSE.txt](./public/fonts/Inter-LICENSE.txt). Geist font files are subject to the [Geist font license](https://github.com/vercel/geist-font/blob/main/LICENSE.txt). The MIT license in this repo applies to the site source code, not to those font binaries.
 
 ## License
 

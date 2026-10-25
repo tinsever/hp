@@ -3,11 +3,13 @@ import Layout from "../layouts/Layout.astro";
 import SiteIntro from "../components/SiteIntro.astro";
 import SiteBio from "../components/SiteBio.astro";
 import ProjectsSection from "../components/ProjectsSection.astro";
+import BlogSection from "../components/BlogSection.astro";
 
 interface Project {
     name: string;
     href: string;
     desc: string;
+    logo?: string;
     featured?: boolean;
     stars?: number;
 }
@@ -32,6 +34,7 @@ try {
 const projects: Project[] = [
     {
         name: "Kaneo",
+        logo: "kaneo",
         href: "https://github.com/usekaneo/kaneo",
         desc: "Open-source project management that works for you, not against you.",
         featured: true,
@@ -64,6 +67,7 @@ const projects: Project[] = [
     },
     {
         name: "FOREX",
+        logo: "forex",
         href: "https://github.com/tinsever/forex.mn-netz.de",
         desc: "Fictional currency management system that uses real-life base currencies.",
     },
@@ -96,5 +100,6 @@ const projects: Project[] = [
         <SiteIntro />
         <SiteBio />
         <ProjectsSection projects={projects} />
+        <BlogSection />
     </main>
 </Layout>

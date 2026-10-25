@@ -1,18 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 
-interface Props {
-    limit?: number;
-}
-
-const { limit = 5 } = Astro.props;
-
-const all = (
+const posts = (
     await getCollection("blog", ({ data }) =>
         import.meta.env.PROD ? data.draft !== true : true,
     )
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const posts = all.slice(0, limit);
 
 const formatDate = (d: Date) =>
     d.toLocaleDateString("en-GB", { month: "short", year: "numeric" });
@@ -56,14 +49,6 @@ const formatDate = (d: Date) =>
                         </li>
                     ))}
                 </ul>
-                {all.length > posts.length && (
-                    <a
-                        href="/blog"
-                        class="mt-8 inline-block no-underline text-stone-500 transition-colors hover:text-stone-900 dark:text-white/45 dark:hover:text-white"
-                    >
-                        All posts →
-                    </a>
-                )}
             </div>
         </section>
     )
